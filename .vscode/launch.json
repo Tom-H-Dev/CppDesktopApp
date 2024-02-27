@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Tom/Documents/GitHub/CppDesktopApp/LeanCpp",
-      "program": "c:/Users/Tom/Documents/GitHub/CppDesktopApp/LeanCpp/build/Debug/outDebug",
+      "cwd": "C:/Users/Admin/Documents/CppDesktopApp/LeanCpp",
+      "program": "C:/Users/Admin/Documents/CppDesktopApp/debugOutput",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
