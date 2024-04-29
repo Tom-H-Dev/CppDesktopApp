@@ -4,7 +4,6 @@
 #define FILE_MENU_NEW 1
 #define FILE_MENU_OPEN 2
 #define FILE_MENU_EXIT 3
-#define CHANGE_TITLE 4
 #define CHANGE_PERSON_INFORMATION 99
 
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
@@ -14,7 +13,6 @@ void AddControls(HWND);
 
 HMENU hMenu;
 
-HWND hEdit;
 HWND hName, hAge, hOut;
 
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR args, int ncmdshow)
@@ -57,11 +55,6 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
                 case FILE_MENU_NEW:
                     MessageBeep(MB_ICONINFORMATION);
                     return 0;
-                case CHANGE_TITLE:
-                    wchar_t text[100];
-                    GetWindowTextW(hEdit, text, 100);
-                    SetWindowTextW(hWnd, text);
-                    return 0;
                 case CHANGE_PERSON_INFORMATION:
                     char name[30], age[10], out[50];
 
@@ -92,13 +85,14 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
     }
 }
 
+//Adds menu bar items
 void AddMenus(HWND hWnd)
 {
     hMenu = CreateMenu();
     HMENU hFileMenu = CreateMenu();
     HMENU hSubMenu = CreateMenu();
 
-    AppendMenu(hSubMenu, MF_STRING, CHANGE_TITLE, "Change Title");
+    AppendMenu(hSubMenu, MF_STRING, NULL, "Change Title");
 
     AppendMenu(hFileMenu, MF_STRING, FILE_MENU_NEW, "New");
     AppendMenu(hFileMenu, MF_POPUP, (UINT_PTR)hSubMenu, "Open SubMenu");
@@ -114,10 +108,6 @@ void AddMenus(HWND hWnd)
 //Add items to the screen
 void AddControls(HWND hWnd)
 {
-    //CreateWindowW(L"static", L"Enter Text Here :", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_CENTER, 50,50, 100, 50, hWnd, NULL, NULL, NULL);
-    //hEdit = CreateWindowW(L"Edit", L"...", WS_VISIBLE | WS_CHILD | WS_BORDER| ES_MULTILINE | ES_AUTOVSCROLL, 50, 110, 100, 50, hWnd, NULL, NULL, NULL);
-    //CreateWindowW(L"Button", L"Change Title", WS_VISIBLE | WS_CHILD | SS_CENTER, 50, 170, 100, 50, hWnd, (HMENU)CHANGE_TITLE, NULL, NULL);
-
     CreateWindowW(L"static", L"Name :", WS_VISIBLE | WS_CHILD, 50,50, 100, 50, hWnd, NULL, NULL, NULL);
     hName = CreateWindowW(L"Edit", L"", WS_VISIBLE | WS_CHILD | WS_BORDER, 160, 50, 100, 50, hWnd, NULL, NULL, NULL);
 
