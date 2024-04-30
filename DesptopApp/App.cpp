@@ -1,5 +1,8 @@
 #include <windows.h>
 #include <stdlib.h>
+#include <iostream>
+
+using namespace std;
 
 #define FILE_MENU_NEW 1
 #define FILE_MENU_OPEN 2
@@ -10,10 +13,15 @@ LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
 void AddMenus(HWND);
 void AddControls(HWND);
+void LoadImages();
 
 HMENU hMenu;
 
 HWND hName, hAge, hOut;
+HWND hLogo;
+
+HBITMAP hLogoImage, hGenerateImgae;
+
 
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR args, int ncmdshow)
 {
@@ -74,6 +82,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 
             return 0;
         case WM_CREATE:
+            LoadImages();
             AddMenus(hWnd);
             AddControls(hWnd);
             return 0;
@@ -108,13 +117,28 @@ void AddMenus(HWND hWnd)
 //Add items to the screen
 void AddControls(HWND hWnd)
 {
-    CreateWindowW(L"static", L"Name :", WS_VISIBLE | WS_CHILD, 50,50, 100, 50, hWnd, NULL, NULL, NULL);
+    //Enter name and age
+    CreateWindowW(L"Static", L"Name :", WS_VISIBLE | WS_CHILD, 50,50, 100, 50, hWnd, NULL, NULL, NULL);
     hName = CreateWindowW(L"Edit", L"", WS_VISIBLE | WS_CHILD | WS_BORDER, 160, 50, 100, 50, hWnd, NULL, NULL, NULL);
 
-    CreateWindowW(L"static", L"Age :", WS_VISIBLE | WS_CHILD, 50,105, 100, 50, hWnd, NULL, NULL, NULL);
+    CreateWindowW(L"Static", L"Age :", WS_VISIBLE | WS_CHILD, 50,105, 100, 50, hWnd, NULL, NULL, NULL);
     hAge = CreateWindowW(L"Edit", L"", WS_VISIBLE | WS_CHILD | WS_BORDER, 160, 105, 100, 50, hWnd, NULL, NULL, NULL);
 
     CreateWindowW(L"Button", L"Generate", WS_VISIBLE | WS_CHILD | SS_CENTER, 50, 170, 100, 50, hWnd, (HMENU)CHANGE_PERSON_INFORMATION, NULL, NULL);
 
     hOut = CreateWindowW(L"Edit", L"", WS_VISIBLE | WS_CHILD | WS_BORDER, 50,225, 210, 50, hWnd, NULL, NULL, NULL);
+
+    //image loading
+    hLogo = CreateWindowW(L"Static", NULL, WS_VISIBLE | WS_CHILD | SS_BITMAP, 170, 150, 100, 100, hWnd, NULL, NULL, NULL);
+    SendMessageW(hLogo, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM) hLogoImage);
+}
+
+void LoadImages()
+{
+    hLogoImage = (HBITMAP)LoadImageW(NULL, L"\\download.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    wprintf(L"Loading image from: %ls\n", L"download.bmp");
+
+    if (hLogoImage == NULL){
+        cout<<"no image";
+    }
 }
