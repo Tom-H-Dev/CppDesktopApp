@@ -133,12 +133,6 @@ void AddControls(HWND hWnd)
     SendMessageW(hLogo, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM) hLogoImage);
 }
 
-void LoadImages()
-{
-    hLogoImage = (HBITMAP)LoadImageW(NULL, L"\\download.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-    wprintf(L"Loading image from: %ls\n", L"download.bmp");
-
-    if (hLogoImage == NULL){
-        cout<<"no image";
-    }
+void LoadImages() {
+    
 }
